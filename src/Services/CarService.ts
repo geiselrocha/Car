@@ -1,18 +1,18 @@
 import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
 import CarODM from '../Models/CarODM';
+import VehicleService from './VehicleService';
 
-export default class CarService {
-  private createCarDomain(car: ICar | null): Car | null {
+export default class CarService extends VehicleService<ICar> {
+  constructor() {
+    const carODM = new CarODM();
+    super(carODM, 'Car');
+  }
+
+  public createVehicleDomain(car: ICar | null): Car {
     if (car) {
       return new Car(car);
     }
-    return null;
-  }
-
-  public async create(car: ICar): Promise<Car | null> {
-    const carODM = new CarODM();
-    const newCar = await carODM.create(car);
-    return this.createCarDomain(newCar);
+    throw super.notFoundException();
   }
 }
