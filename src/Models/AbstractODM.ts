@@ -1,10 +1,10 @@
 import {
-  isValidObjectId,
+  // isValidObjectId,
   Model,
   models,
   Schema,
   model,
-  // UpdateQuery,
+  UpdateQuery,
 } from 'mongoose';
 
 export default abstract class AbstractODM<T> {
@@ -27,12 +27,12 @@ export default abstract class AbstractODM<T> {
   }
 
   public async findById(id: string): Promise<T | null> {
-    if (!isValidObjectId(id)) throw Error('Invalid Mongo id');
+    // if (!isValidObjectId(id)) throw Error('Invalid Mongo id');
     return this.model.findById(id);
   }
 
-  // public async update(id: string, updateInfo: UpdateQuery<T>): Promise<T | null> {
-  //   if (!isValidObjectId(_id)) throw Error('Invalid Mongo id');
-  //   return this.model.findByIdAndUpdate(id, updateInfo, { new: true });
-  // }
+  public async update(id: string, updateInfo: UpdateQuery<T>): Promise<T | null> {
+    // if (!isValidObjectId(id)) throw Error('Invalid Mongo id');
+    return this.model.findByIdAndUpdate(id, updateInfo, { new: true });
+  }
 }

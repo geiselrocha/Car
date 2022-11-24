@@ -35,4 +35,12 @@ export default abstract class VehicleService<T> {
     const carDomain: Vehicle = this.createVehicleDomain(car);
     return carDomain;
   }
+
+  public async update(id: string, updateInfo: T): Promise<Vehicle> {
+    const vehicle = this.createVehicleDomain(updateInfo);
+    const moto: T | null = await this.vehicleODM.update(id, vehicle);
+    if (!moto) throw this.notFoundException();
+    const motoDomain: Vehicle = this.createVehicleDomain(moto);
+    return motoDomain;
+  }
 }
