@@ -42,4 +42,14 @@ export default class MotoController {
       this.next(error);
     }
   }
+
+  public async findById() {
+    const { id } = this.req.params;
+    try {
+      const moto = await this.service.findById(id);
+      return this.res.status(200).json(moto);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
